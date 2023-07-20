@@ -15,6 +15,18 @@ class Field {
       console.log(this._field[i].join(""));
     }
   }
+
+  // Asks user for input
+  input() {
+    const directions = "AaSsDdWw";
+    console.log("A -> Left  S -> Down  D -> Right  W -> Up");
+    let x = prompt("Which direction would you like to go?:");
+    if (directions.includes(x)) {
+      console.log("Valid Choice");
+    } else {
+      console.log("Invalid Choice");
+    }
+  }
 }
 
 const game = new Field([
@@ -26,3 +38,4 @@ const game = new Field([
 ]);
 
 game.print();
+game.input();
