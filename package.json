@@ -1,0 +1,19 @@
+{
+  "name": "find-your-hat",
+  "version": "1.0.0",
+  "description": "An interactive terminal game built with JS. The player has lost their hat in a field full of holes, and they must navigate back to it without falling down one of the holes or stepping outside of the field.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjhenrichs/cc-Find-your-hat.git"
+  },
+  "author": "Jeff Henrichs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjhenrichs/cc-Find-your-hat/issues"
+  },
+  "homepage": "https://github.com/jjhenrichs/cc-Find-your-hat#readme"
+}
