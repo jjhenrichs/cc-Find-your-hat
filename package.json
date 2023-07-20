@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jjhenrichs/cc-Find-your-hat/issues"
   },
-  "homepage": "https://github.com/jjhenrichs/cc-Find-your-hat#readme"
+  "homepage": "https://github.com/jjhenrichs/cc-Find-your-hat#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }
