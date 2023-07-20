@@ -71,6 +71,19 @@ class Field {
     console.log(status);
 
     // Update the field based on the value of status
+    if (status === "Continue") {
+      if (
+        direction === "S" ||
+        direction === "s" ||
+        direction === "W" ||
+        direction === "w"
+      ) {
+        this.field[prev_x][prev_y] = "|";
+      } else {
+        this.field[prev_x][prev_y] = "-";
+      }
+      this.field[new_x][new_y] = "*";
+    }
 
     this.print();
   }
