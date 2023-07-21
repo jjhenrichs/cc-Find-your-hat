@@ -41,11 +41,8 @@ class Field {
     return choice;
   }
 
-  // Updates the user's location and the field
-  update() {
-    let direction = this.input();
-
-    console.log(this.x, this.y);
+  // Updates the user's coordinates
+  updateXY(direction) {
     let prev_x = this.x; //Previous X Coord
     let prev_y = this.y; //Previous Y Coord
     let new_x, new_y;
@@ -64,9 +61,11 @@ class Field {
     new_x = this.x; //New X Coord
     new_y = this.y; //New Y Coord
 
-    console.log("previous coords - ", prev_x, prev_y);
-    console.log("new coords - ", new_x, new_y);
+    return { prev_x, prev_y, new_x, new_y };
+  }
 
+  // Updates the field
+  updateField(direction) {
     let status = this.status();
     console.log(status);
 
@@ -115,6 +114,6 @@ const game = new Field([
   [fieldChar, fieldChar, hole, hat],
 ]);
 
-game.print();
-// game.input();
-game.update();
+// let { prev_x, prev_y, new_x, new_y } = game.updateXY("W", 0, 0);
+// console.log("Previous X: ", prev_x, "Previous Y: ", prev_y);
+// console.log("Current X: ", new_x, "Current Y: ", new_y);
