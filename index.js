@@ -25,11 +25,13 @@ class Field {
 
   // Asks user for input and validates it
   input() {
-    const directions = ["A", "a", "S", "s", "D", "d", "W", "w"];
+    const directions = ["A", "a", "S", "s", "D", "d", "W", "w", "X", "x"];
 
     let choice;
     do {
-      console.log("A -> Left  S -> Down  D -> Right  W -> Up");
+      console.log(
+        "A -> Left  S -> Down  D -> Right  W -> Up  X -> generate new board"
+      );
       choice = prompt("Which direction would you like to go?: ");
       if (!directions.includes(choice)) {
         console.log("Invalid Choice");
@@ -109,6 +111,12 @@ class Field {
 
     do {
       direction = this.input();
+
+      // If we need to generate a new Board
+      if (direction === "X" || direction === "x") {
+        break;
+      }
+
       ({ prev_x, prev_y, new_x, new_y } = this.updateXY(direction));
       status = this.status();
       this.updateField(direction, prev_x, prev_y, new_x, new_y, status);
@@ -120,44 +128,41 @@ class Field {
 
   static generateField() {
     let width = Math.floor(Math.random() * 17) + 4;
-    let height = Math.floor(Math.random() * 26) + 5;
-    // let numOfHoles = Math.floor((width * height) / 5);
+    let height = Math.floor(width * 1.25);
+    let numOfHoles = Math.floor((width * height) / 5);
     let board = [];
     let temp_arr = [];
-    let temp_height = height;
-    console.log(width, height, width * height);
+    let temp_height = 0;
 
-    // Make a blank board with the hat (at the bottom right corner) and pathChar (at the top left corner)
-    while (temp_height > 0) {
-      for (let i = 0; i <= width; i++) {
-        if (i === 0 && temp_height === height) {
-          temp_arr.push(pathChar);
-        } else if (i === width && temp_height === 1) {
-          temp_arr.push(hat);
-        } else {
-          temp_arr.push(fieldChar);
-        }
+    // Make a blank board
+    while (temp_height !== height) {
+      for (let i = 0; i < width; i++) {
+        temp_arr.push(fieldChar);
       }
       board.push(temp_arr);
       temp_arr = [];
-      temp_height--;
+      temp_height++;
     }
 
-    // Print the generated board
-    for (let i = 0; i < board.length; i++) {
-      console.log(board[i].join("")); // Prints the field one array at a time
+    // Adding random Holes ("O") to the board
+    while (numOfHoles > 0) {
+      let hole_y = Math.floor(Math.random() * width);
+      let hole_x = Math.floor(Math.random() * height);
+
+      board[hole_x][hole_y] = "O";
+      numOfHoles--;
     }
+
+    // Add the pathChar ("*") to the top right corner
+    board[0][0] = pathChar;
+
+    // Add the hat ("^") to the bottom right corner
+    board[height - 1][width - 1] = hat;
+
+    return board;
   }
 }
 
-const game = new Field([
-  [pathChar, fieldChar, fieldChar, fieldChar],
-  [fieldChar, fieldChar, hole, fieldChar],
-  [hole, fieldChar, fieldChar, hole],
-  [fieldChar, hole, fieldChar, fieldChar],
-  [fieldChar, fieldChar, hole, hat],
-]);
+const game = new Field(Field.generateField());
 
-// game.play();
-
-Field.generateField();
+game.play();
