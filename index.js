@@ -5,8 +5,6 @@ const hole = "O";
 const fieldChar = "░";
 const pathChar = "*";
 
-// pathChar Coordinates
-
 class Field {
   constructor(field) {
     this._field = field;
@@ -104,6 +102,7 @@ class Field {
     }
   }
 
+  // Starts the game and continues it until the player wins or loses
   play() {
     let direction, prev_x, prev_y, new_x, new_y, status;
     this.print();
@@ -118,6 +117,37 @@ class Field {
 
     console.log(status);
   }
+
+  static generateField() {
+    let width = Math.floor(Math.random() * 17) + 4;
+    let height = Math.floor(Math.random() * 26) + 5;
+    // let numOfHoles = Math.floor((width * height) / 5);
+    let board = [];
+    let temp_arr = [];
+    let temp_height = height;
+    console.log(width, height, width * height);
+
+    // Make a blank board with the hat (at the bottom right corner) and pathChar (at the top left corner)
+    while (temp_height > 0) {
+      for (let i = 0; i <= width; i++) {
+        if (i === 0 && temp_height === height) {
+          temp_arr.push(pathChar);
+        } else if (i === width && temp_height === 1) {
+          temp_arr.push(hat);
+        } else {
+          temp_arr.push(fieldChar);
+        }
+      }
+      board.push(temp_arr);
+      temp_arr = [];
+      temp_height--;
+    }
+
+    // Print the generated board
+    for (let i = 0; i < board.length; i++) {
+      console.log(board[i].join("")); // Prints the field one array at a time
+    }
+  }
 }
 
 const game = new Field([
@@ -128,4 +158,6 @@ const game = new Field([
   [fieldChar, fieldChar, hole, hat],
 ]);
 
-game.play();
+// game.play();
+
+Field.generateField();
