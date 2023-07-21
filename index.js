@@ -64,27 +64,26 @@ class Field {
     return { prev_x, prev_y, new_x, new_y };
   }
 
-  // Updates the field
-  updateField(direction) {
-    let status = this.status();
-    console.log(status);
-
-    // Update the field based on the value of status
-    if (status === "Continue") {
-      if (
-        direction === "S" ||
-        direction === "s" ||
-        direction === "W" ||
-        direction === "w"
-      ) {
-        this.field[prev_x][prev_y] = "|";
-      } else {
-        this.field[prev_x][prev_y] = "-";
-      }
-      this.field[new_x][new_y] = "*";
+  // Update the field based on the value of status
+  updateField(direction, prev_x, prev_y, new_x, new_y, status) {
+    // Draws a path
+    if (
+      direction === "S" ||
+      direction === "s" ||
+      direction === "W" ||
+      direction === "w"
+    ) {
+      this.field[prev_x][prev_y] = "|";
+    } else {
+      this.field[prev_x][prev_y] = "-";
     }
 
-    this.print();
+    // Updates the location of the star or finishes the path
+    if (status === "Continue") {
+      this.field[new_x][new_y] = "*";
+    } else if (status.includes("Win")) {
+      this.field[new_x][new_y] = "^";
+    }
   }
 
   //Checks to see if the user Wins, Loses, or Continues
@@ -104,6 +103,21 @@ class Field {
       return "Continue";
     }
   }
+
+  play() {
+    let direction, prev_x, prev_y, new_x, new_y, status;
+    this.print();
+
+    do {
+      direction = this.input();
+      ({ prev_x, prev_y, new_x, new_y } = this.updateXY(direction));
+      status = this.status();
+      this.updateField(direction, prev_x, prev_y, new_x, new_y, status);
+      this.print();
+    } while (status === "Continue");
+
+    console.log(status);
+  }
 }
 
 const game = new Field([
@@ -114,6 +128,4 @@ const game = new Field([
   [fieldChar, fieldChar, hole, hat],
 ]);
 
-// let { prev_x, prev_y, new_x, new_y } = game.updateXY("W", 0, 0);
-// console.log("Previous X: ", prev_x, "Previous Y: ", prev_y);
-// console.log("Current X: ", new_x, "Current Y: ", new_y);
+game.play();
