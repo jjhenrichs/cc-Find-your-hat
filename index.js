@@ -10,6 +10,7 @@ class Field {
     this._field = field;
     this.x = 0; // x -> Horizontal Coord (Row)
     this.y = 0; // y -> Verticial Coord (Column)
+    console.log(this._field[0].length, this._field.length);
   }
 
   get field() {
@@ -61,6 +62,15 @@ class Field {
     new_x = this.x; //New X Coord
     new_y = this.y; //New Y Coord
 
+    console.log(
+      "Width of Field: ",
+      this._field[0].length,
+      "Length of Field: ",
+      this._field.length
+    );
+    console.log("Previous X: ", prev_x, "Previous Y: ", prev_y);
+    console.log("Current X: ", new_x, "Current Y: ", new_y);
+
     return { prev_x, prev_y, new_x, new_y };
   }
 
@@ -90,9 +100,9 @@ class Field {
   status() {
     if (
       this.x < 0 ||
-      this.x > this.field[0].length ||
+      this.x > this.field.length ||
       this.y < 0 ||
-      this.y > this.field.length
+      this.y > this.field[0].length
     ) {
       return "Lose - you went out of bounds.";
     } else if (this.field[this.x][this.y] === "O") {
@@ -128,7 +138,7 @@ class Field {
 
   static generateField() {
     let width = Math.floor(Math.random() * 17) + 4;
-    let height = Math.floor(width * 1.25);
+    let height = Math.floor(Math.random() * 15) + 6;
     let numOfHoles = Math.floor((width * height) / 5);
     let board = [];
     let temp_arr = [];
