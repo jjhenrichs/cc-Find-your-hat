@@ -30,9 +30,7 @@ class Field {
 
     let choice;
     do {
-      console.log(
-        "A -> Left  S -> Down  D -> Right  W -> Up  X -> generate new board"
-      );
+      console.log("A -> Left  S -> Down  D -> Right  W -> Up  X -> Quit");
       choice = prompt("Which direction would you like to go?: ");
       if (!directions.includes(choice)) {
         console.log("Invalid Choice");
@@ -122,7 +120,7 @@ class Field {
     do {
       direction = this.input();
 
-      // If we need to generate a new Board
+      // If we need to quit
       if (direction === "X" || direction === "x") {
         break;
       }
